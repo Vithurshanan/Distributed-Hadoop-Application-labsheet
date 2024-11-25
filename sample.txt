@@ -1,0 +1,3 @@
+This is a test file.
+Hadoop is a powerful tool.
+Big data processing is fun.

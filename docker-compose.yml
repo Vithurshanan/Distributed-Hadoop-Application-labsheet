@@ -1,0 +1,38 @@
+#version: '3'
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:latest
+    container_name: namenode
+    environment:
+      - CLUSTER_NAME=testhadoop
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+    ports:
+      - "9870:9870" # Web UI
+      - "9000:9000" # NameNode port
+    volumes:
+      - namenode-data:/hadoop/dfs/name
+
+  datanode:
+    image: bde2020/hadoop-datanode:latest
+    container_name: datanode
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+    volumes:
+      - datanode-data:/hadoop/dfs/data
+    depends_on:
+      - namenode
+
+  historyserver:
+    image: bde2020/hadoop-historyserver:latest
+    container_name: historyserver
+    depends_on:
+      - namenode
+      - datanode
+    ports:
+      - "8188:8188" # Job History server UI
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+
+volumes:
+  namenode-data:
+  datanode-data:

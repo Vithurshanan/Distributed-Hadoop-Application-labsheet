@@ -1,0 +1,19 @@
+1. docker-compose up -d
+
+2. docker cp "C:\Users\Jana\Desktop\Lecture Notes\3 Year 2 Semester\SE6103 Parallel and Distributed Systems\Practical\Day 4\sample.txt" namenode:/sample.txt
+
+3. docker exec -it namenode ls /
+
+4. docker exec -it namenode hdfs dfs -mkdir -p /input
+
+5. docker exec -it namenode hdfs dfs -put /sample.txt /input
+
+6. docker exec -it namenode hdfs dfs -ls /input
+
+7. docker exec -it namenode hadoop jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar wordcount /input /output
+
+8. docker exec -it namenode hdfs dfs -ls /output
+
+9. docker exec -it namenode hdfs dfs -cat /output/part-r-00000
+
+10. docker-compose down
